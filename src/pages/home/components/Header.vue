@@ -1,8 +1,8 @@
 <template>
 <div class="header">
     <div class="header-left"><div class="iconfont  back-icon">&#xe624;</div></div>
-    <div class="header-input"><spn class="iconfont">&#xe632;</spn>收入城市/景点/游玩主题</div>
-    <div class="header-right">城市<spn class="iconfont arrow-icon">&#xe64a;</spn></div>
+    <div class="header-input"><span class="iconfont">&#xe632;</span>收入城市/景点/游玩主题</div>
+    <div class="header-right">城市<span class="iconfont arrow-icon">&#xe64a;</span></div>
     </div>
 </template>
 <script>
