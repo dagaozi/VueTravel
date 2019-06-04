@@ -1,7 +1,8 @@
 <template>
   <div class="wrapper">
-    <swiper :options="swiperOption">
-      <swiper-slide v-for="item of swiperList" :key="item.id">
+    <!-- v-if是为了保证刚开始的空数组不创建swiper等ajax获得数据后创建swiper -->
+    <swiper :options="swiperOption" v-if="showSwiper">
+      <swiper-slide v-for="item of list" :key="item.id">
         <img
           class="swiper-img"
           :src="item.imgUrl"
@@ -15,22 +16,30 @@
 <script>
 export default {
   name: "HomeSwiper",
+  props:{
+    list:Array
+  },
   data () {
     return {
       swiperOption: {
         pagination:'.swiper-pagination',
         loop:true
       },
-      swiperList:[{
-        id:"0001",
-        imgUrl:"http://mp-piao-admincp.qunarzz.com/mp_piao_admin_mp_piao_admin/admin/20193/d7bbc21db442366a882e04ddc984669a.jpg_750x200_85e640d9.jpg"
-      },
-      {
-        id:"0002",
-        imgUrl:"http://mp-piao-admincp.qunarzz.com/mp_piao_admin_mp_piao_admin/admin/20192/9f73976e40c4ef845cabe0efc0269ebb.jpg_750x200_aab92b7a.jpg"
-      }]
+      // swiperList:[{
+      //   id:"0001",
+      //   imgUrl:"http://mp-piao-admincp.qunarzz.com/mp_piao_admin_mp_piao_admin/admin/20193/d7bbc21db442366a882e04ddc984669a.jpg_750x200_85e640d9.jpg"
+      // },
+      // {
+      //   id:"0002",
+      //   imgUrl:"http://mp-piao-admincp.qunarzz.com/mp_piao_admin_mp_piao_admin/admin/20192/9f73976e40c4ef845cabe0efc0269ebb.jpg_750x200_aab92b7a.jpg"
+      // }]
     };
-  }
+  },
+  computed: {
+    showSwiper(){
+      return this.list.length
+    }
+  },
 };
 </script>
 
