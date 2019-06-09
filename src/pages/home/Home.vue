@@ -14,6 +14,7 @@ import HomeIcons from './components/Icons'
 import HomeRecommend from './components/Recommend'
 import HomeWeekend from './components/Weekend'
 import axios from 'axios'
+import {mapState} from 'vuex'
 export default {
     name:'home',
     components:{
@@ -26,15 +27,19 @@ export default {
     },
     data(){
       return{
+        lastCity:"",
         swiperList:[],
         iconList:[],
         recommendList:[],
         weekendList:[]
       }
     },
+    computed: {
+      ...mapState(["city"])
+    },
     methods: {
       getHomeInfo(){
-        axios.get('/api/index.json')
+        axios.get('/api/index.json?city='+this.city)
           .then(this.getHomeInfoSucc)
       },
       getHomeInfoSucc(res){
@@ -50,8 +55,19 @@ export default {
       }
     },
     mounted() {
+       console.log("mounted");
+      this.lastCity=this.city
       this.getHomeInfo()
     },
+    //keepalive下会才会有该生命周期函数
+    activated(){  
+      console.log("activated");//每次进入该页面都会执行该生命周期，相当于onResume
+      
+      if(this.lastCity !== this.city){
+        this.lastCity=this.city
+        this.getHomeInfo
+      }
+    }
 }
 </script>
 <style scoped>
