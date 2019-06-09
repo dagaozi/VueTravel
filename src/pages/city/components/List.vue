@@ -5,14 +5,14 @@
         <div class="title border-topbottom">当前城市</div>
         <div class="button-list">
           <div class="button-wrapper">
-            <div class="button">北京</div>
+            <div class="button"> {{this.currentCity}}</div>
           </div>
         </div>
       </div>
       <div class="area">
         <div class="title border-topbottom">热门城市</div>
         <div class="button-list">
-          <div class="button-wrapper" v-for="item in hot" :key="item.id">
+          <div class="button-wrapper" v-for="item in hot" :key="item.id" @click="handleCityClick(item.name)">
             <div class="button">{{item.name}}</div>
           </div>
         </div>
@@ -20,7 +20,7 @@
       <div class="area" v-for="(item,key) of cities" :key="key" :ref="key">
         <div class="title border-topbottom">{{key}}</div>
         <div class="item-list">
-          <div class="item border-bottom" v-for="innerItem in item" :key="innerItem.id">{{innerItem.name}}</div>
+          <div class="item border-bottom" v-for="innerItem in item" :key="innerItem.id" @click="handleCityClick(innerItem.name)">{{innerItem.name}}</div>
         </div>
       </div>
     </div>
@@ -28,12 +28,27 @@
 </template>
 <script>
 import Bscroll from 'better-scroll'
+import {mapState,mapMutations} from 'vuex'
 export default {
   name:"CityList",
   props:{
     hot:Array,
     cities:Object,
     letter:String
+  },
+  computed:{
+    ...mapState({
+      currentCity:'city' //将vuex中的city属性映射到计算属性中的currentCity中，方便引用
+    })
+  },
+  methods: {
+    handleCityClick(city){
+      //this.$store.dispatch('changeCity',city) 
+     // this.$store.commit('changeCity',city) //没有异步操作，直接跳过aciton，进行commit
+      this.changeCity(city)//同上面那句话,mapMutations帮我把Mutations的changeCity映射到本地的changeCity方法
+      this.$router.push('/')
+    },
+    ...mapMutations(['changeCity'])//把Mutations的changeCity映射到本地的方法
   },
   mounted() {
     this.scroll=new Bscroll(this.$refs.wapper)

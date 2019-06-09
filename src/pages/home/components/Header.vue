@@ -8,18 +8,24 @@
     </div>
     <router-link to='/city'>
       <div class="header-right">
-        {{this.city}}
+        <!-- {{this.$store.state.city}} -->
+        <!-- mapState映射后，可以不用上面那种麻烦写法了 -->
+        <!-- {{this.city}} -->
+        {{this.doubleCity}}
         <span class="iconfont arrow-icon">&#xe64a;</span>
       </div>
     </router-link>
   </div>
 </template>
 <script>
+import {mapState,mapGetters} from 'vuex'
 export default {
   name: "HomeHeader",
-  props: {
-    city: String
-  }
+  computed: {
+    //使用 mapState 辅助函数帮助我们生成计算属性
+    ...mapState(['city']), //将vuex中的city映射到当前组件的计算属性的city   注：三个点为js的扩展运算符（对象扩展运算符 https://github.com/tc39/proposal-object-rest-spread）
+    ...mapGetters(['doubleCity']) //将vuex中的getter中的doubleCity映射到当前组件的计算属性的doubleCity 
+  },
 };
 </script>
 <style lang='stylus' scoped>
@@ -47,7 +53,8 @@ export default {
   padding-left 0.2rem
   color #ccc
 .header-right
-  width 1.24rem
+  min-width 1.04rem //最小宽度
+  padding 0 .1rem //上下0，左右.1rem
   float right
   text-align center
   color #FFF

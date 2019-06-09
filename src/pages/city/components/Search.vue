@@ -6,7 +6,7 @@
     <!-- keyword有值显示搜索内容 -->
     <div class="search-content" ref='search' v-show="this.keyword">
       <ul>
-        <li class="search-item border-bottom" v-for="item in list" :key="item.id">{{item.name}}</li>
+        <li class="search-item border-bottom" v-for="item in list" :key="item.id" @click="handleCityClick(item.name)">{{item.name}}</li>
         <li class="search-item border-bottom" v-show="this.hasNoData">没有该城市</li>
       </ul>
     </div>
@@ -14,6 +14,7 @@
 </template>
 <script>
 import Bscroll from 'better-scroll'
+import {mapMutations} from 'vuex'
 export default {
   name: "CitySearch",
   props:{
@@ -25,6 +26,15 @@ export default {
       list:[],
       timer:null,
     }
+  },
+  methods: {
+      handleCityClick(city){
+      //this.$store.dispatch('changeCity',city) 
+     // this.$store.commit('changeCity',city) //没有异步操作，直接跳过aciton，进行commit
+      this.changeCity(city)//同上面那句话,mapMutations帮我把Mutations的changeCity映射到本地的changeCity方法
+      this.$router.push('/')
+    },
+    ...mapMutations(['changeCity'])//把Mutations的changeCity映射到本地的方法
   },
   computed: {
     hasNoData(){
