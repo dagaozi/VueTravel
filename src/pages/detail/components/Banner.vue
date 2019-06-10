@@ -25,7 +25,8 @@ export default {
 data() {
   return {
     showGrallary:false,
-    imgs:[]
+    imgs:["http://img1.qunarzz.com/sight/p0/1809/4d/4d4afebae213d6a5a3.img.jpg_200x200_ad7de07d.jpg",
+        "http://img1.qunarzz.com/sight/source/1505/da/2d9fbf88a7ed69.jpg_r_640x214_504a958c.jpg"]
   }
 },
 methods: {

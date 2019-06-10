@@ -3,7 +3,7 @@
     <div class="wrapper">
       <!-- v-if是为了保证刚开始的空数组不创建swiper等ajax获得数据后创建swiper -->
       <swiper :options="swiperOption" v-if="showSwiper">
-        <swiper-slide v-for="(item,index) of list" :key="index">
+        <swiper-slide v-for="(item,index) of imgs" :key="index">
           <img class="swiper-img grallary-img" :src="item">
         </swiper-slide>
         <div class="swiper-pagination" slot="pagination"></div>
@@ -15,11 +15,10 @@
 export default {
   name: "CommonGrallary",
   props:{
-    list:{
+    imgs:{
       type:Array,
       default(){
-        return ["http://img1.qunarzz.com/sight/p0/1809/4d/4d4afebae213d6a5a3.img.jpg_200x200_ad7de07d.jpg",
-        "http://img1.qunarzz.com/sight/source/1505/da/2d9fbf88a7ed69.jpg_r_640x214_504a958c.jpg"]
+        return []
       }
     }
   },
