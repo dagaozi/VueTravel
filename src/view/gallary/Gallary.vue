@@ -2,7 +2,7 @@
   <div class="container" @click="handleClick">
     <div class="wrapper">
       <!-- v-if是为了保证刚开始的空数组不创建swiper等ajax获得数据后创建swiper -->
-      <swiper :options="swiperOption" v-if="showSwiper">
+      <swiper :options="swiperOptions" v-if="showSwiper">
         <swiper-slide v-for="(item,index) of imgs" :key="index">
           <img class="swiper-img grallary-img" :src="item">
         </swiper-slide>
@@ -24,7 +24,7 @@ export default {
   },
   data() {
     return {
-      swiperOption:{
+      swiperOptions:{
         pagination:'.swiper-pagination',
         paginationType:'fraction',
         observeParents:true,
@@ -56,6 +56,7 @@ export default {
   bottom 0
   background #000c // 最后一位透明度
   .wrapper
+    //overflow hidden
     height 0
     width 100%
     padding-bottom 100%
