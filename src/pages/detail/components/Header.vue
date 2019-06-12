@@ -37,7 +37,11 @@ export default {
     }
   },
   activated() {
+     //该滑动在全局的window对象上，对全局都有影响，即在其他组件也会执行handleScroll方法！
     window.addEventListener('scroll',this.handleScroll)
+  },
+  deactivated() {
+    window.removeEventListener('scroll',this.handleScroll)
   },
 };
 </script>
