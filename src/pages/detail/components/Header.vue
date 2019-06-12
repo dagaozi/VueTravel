@@ -15,34 +15,43 @@ export default {
   name: "DetailHeader",
   data() {
     return {
-      showAbs:true,//是否显示圆形返回按钮
-      opacityStyle:{
-        opacity:0
+      showAbs: true, //是否显示圆形返回按钮
+      opacityStyle: {
+        opacity: 0 //刚才是头部烂透明
       }
-    }
+    };
   },
   methods: {
-    handleScroll(){
-      const top=document.documentElement.scrollTop;//网上滑动距离
+    handleScroll() {
+      const top = document.documentElement.scrollTop; //网上滑动距离
       console.log(top);
-      if(top>40){
-        let opacity=top/140
-        opacity=opacity > 1 ? 1 : opacity
-        this.opacityStyle={opacity:opacity}//键值相等可以只写一个
-        this.showAbs=false
-      }else{
-        this.showAbs=true
+      if (top > 40) {
+        let opacity = top / 140;
+        opacity = opacity > 1 ? 1 : opacity;
+        this.opacityStyle = { opacity: opacity }; //键值相等可以只写一个
+        this.showAbs = false;
+      } else {
+        this.showAbs = true;
       }
-      
     }
   },
-  activated() {
-     //该滑动在全局的window对象上，对全局都有影响，即在其他组件也会执行handleScroll方法！
-    window.addEventListener('scroll',this.handleScroll)
+  //在设置了keep-alive忽略后，这两个生命周期不在调用
+  // activated() {
+  //   //该滑动在全局的window对象上，对全局都有影响，即在其他组件也会执行handleScroll方法！
+  //   console.log("注册滑动事件");
+  //   window.addEventListener("scroll", this.handleScroll);
+  // },
+  // deactivated() {
+  //   console.log("注销滑动事件");
+  //   window.removeEventListener("scroll", this.handleScroll);
+  // },
+  //该滑动在全局的window对象上，对全局都有影响，即在其他组件也会执行handleScroll方法！所以要及时释放掉
+  mounted() {
+    window.addEventListener("scroll", this.handleScroll);
   },
-  deactivated() {
-    window.removeEventListener('scroll',this.handleScroll)
-  },
+  destroyed() {
+    window.removeEventListener("scroll", this.handleScroll);
+  }
 };
 </script>
 <style lang="stylus" scoped>

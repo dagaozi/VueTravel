@@ -3,16 +3,16 @@
     <div class="banner" @click="handleClick">
       <img
         class="banner-img"
-        src="http://img1.qunarzz.com/sight/source/1811/52/b6776b49d27025.jpg_r_640x214_35ae205c.jpg"
+        :src='bannerImg'
       >
       <div class="banner-info">
-        <div class="banner-title">风景介绍</div>
+        <div class="banner-title">{{this.sightName}}</div>
         <div class="banner-number">
-          <span class="iconfont banner-icon">&#xe66b;</span>39
+          <span class="iconfont banner-icon">&#xe66b;</span>{{this.gallaryImgs.length}}
         </div>
       </div>
     </div>
-    <common-grallary :imgs='imgs' v-show='showGrallary' @close="handleClose"></common-grallary>
+    <common-grallary :imgs="this.gallaryImgs" v-show="showGrallary" @close="handleClose"></common-grallary>
   </div>
 </template>
 <script>
@@ -22,21 +22,24 @@ export default {
   components: {
     CommonGrallary
   },
-data() {
-  return {
-    showGrallary:false,
-    imgs:["http://img1.qunarzz.com/sight/p0/1809/4d/4d4afebae213d6a5a3.img.jpg_200x200_ad7de07d.jpg",
-        "http://img1.qunarzz.com/sight/source/1505/da/2d9fbf88a7ed69.jpg_r_640x214_504a958c.jpg"]
-  }
-},
-methods: {
-  handleClick(){
-    this.showGrallary=true
+  props: {
+    sightName: String,
+    bannerImg:String,
+    gallaryImgs:Array
   },
-  handleClose(){
-     this.showGrallary=false
+  data() {
+    return {
+      showGrallary: false
+    };
+  },
+  methods: {
+    handleClick() {
+      this.showGrallary = true;
+    },
+    handleClose() {
+      this.showGrallary = false;
+    }
   }
-},
 };
 </script>
 <style lang="stylus" scoped>
